@@ -1,4 +1,5 @@
 @echo off
-title EGU Stream Engine
-start "" node_modules\electron\dist\electron.exe .
-exit
+title EGU Cloud Gaming Server
+echo Initializing background interfaces...
+call npm start
+pause
