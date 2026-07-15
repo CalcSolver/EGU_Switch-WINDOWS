@@ -11,4 +11,4 @@
 - Use with care
 - This was built with Google Gemini so it will make mistakes
 # DONATION:
-If you enjoy this software, feel free to donate to this link 
+If you enjoy this software, feel free to donate to this link:https://gofund.me/0d2e74079
