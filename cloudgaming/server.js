@@ -11,19 +11,18 @@ const io = socketIo(server, {
     cors: { origin: "*" }
 });
 
+// Serve everything inside the public folder automatically
 app.use(express.static(path.join(__dirname, 'public')));
 
-let activeServerInstance = null;
-
 io.on('connection', (socket) => {
-    console.log('🎮 Client linked to host controller.');
+    console.log('🎮 Client linked to host controller pipeline.');
 
     socket.on('mouse-move', (data) => {
         try {
             if (data && typeof data.x === 'number' && typeof data.y === 'number') {
                 robot.moveMouse(data.x, data.y);
             }
-        } catch (err) { /* Silent fallback */ }
+        } catch (err) {}
     });
 
     socket.on('mouse-click', () => {
@@ -39,19 +38,10 @@ io.on('connection', (socket) => {
     });
 });
 
-function startServer() {
-    if (!activeServerInstance) {
-        activeServerInstance = server.listen(3000, () => {
-            console.log('Server active.');
-        });
-    }
-}
-
-function stopServer() {
-    if (activeServerInstance) {
-        activeServerInstance.close();
-        activeServerInstance = null;
-    }
-}
-
-module.exports = { startServer, stopServer };
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`\n====================================================`);
+    console.log(`🚀 EGU STREAM ENGINE IS NOW ONLINE`);
+    console.log(`🌐 Playing locally: http://localhost:${PORT}`);
+    console.log(`====================================================\n`);
+});
