@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        h1 { font-size: 18px; margin-bottom: 5px; color: #3b82f6; }
+        p { font-size: 12px; color: #94a3b8; margin: 0 0 20px 0; }
+        
+        /* The Switch design */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155;
+            transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 32px; width: 32px; left: 4px; bottom: 4px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: #10b981; }
+        input:checked + .slider:before { transform: translateX(40px); }
+
+        #link-display {
+            margin-top: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #10b981;
+            display: none;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px dashed #10b981;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>EGU Host Control</h1>
+    <p id="status-text">Server Status: Stopped</p>
+
+    <label class="switch">
+        <input type="checkbox" id="power-toggle">
+        <span class="slider"></span>
+    </label>
+
+    <div id="link-display">Stream: <span id="url-text">http://localhost:3000</span></div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        const toggle = document.getElementById('power-toggle');
+        const statusText = document.getElementById('status-text');
+        const linkDisplay = document.getElementById('link-display');
+
+        toggle.addEventListener('change', () => {
+            const targetState = toggle.checked ? 'on' : 'off';
+            ipcRenderer.send('toggle-server', targetState);
+        });
+
+        ipcRenderer.on('server-status', (event, status) => {
+            if (status.running) {
+                statusText.innerText = "Server Status: RUNNING";
+                statusText.style.color = "#10b981";
+                linkDisplay.style.display = "block";
+            } else {
+                statusText.innerText = "Server Status: Stopped";
+                statusText.style.color = "#94a3b8";
+                linkDisplay.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>
