@@ -2,163 +2,28 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>EGU Engine Dashboard</title>
+    <title>EGU Stream Interface</title>
     <style>
-        body {
-            background-color: #0b0f19;
-            color: #f1f5f9;
-            font-family: system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            box-sizing: border-box;
-            user-select: none;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        h1 {
-            font-size: 22px;
-            font-weight: 800;
-            margin: 0;
-            color: #3b82f6;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .subtitle {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 4px;
-        }
-        .card {
-            background: #111827;
-            border: 1px solid #1f2937;
-            border-radius: 16px;
-            padding: 24px;
-            width: 100%;
-            max-width: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-        .status-badge {
-            background: #1e293b;
-            border-radius: 99px;
-            padding: 6px 16px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid #334155;
-        }
-        .status-active {
-            color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
-            border-color: rgba(16, 185, 129, 0.2);
-        }
-        
-        /* Premium Toggle Switch */
-        .switch-container {
-            position: relative;
-            margin: 15px 0;
-        }
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 90px;
-            height: 46px;
-        }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #374151;
-            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 46px;
-            border: 1px solid #4b5563;
-        }
-        .slider:before {
-            position: absolute; content: ""; height: 36px; width: 36px; left: 4px; bottom: 4px;
-            background-color: #f8fafc;
-            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 50%;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-        }
-        input:checked + .slider {
-            background-color: #3b82f6;
-            border-color: #2563eb;
-        }
-        input:checked + .slider:before {
-            transform: translateX(44px);
-            background-color: #ffffff;
-        }
-
-        .link-card {
-            margin-top: 24px;
-            background: rgba(59, 130, 246, 0.08);
-            border: 1px dashed rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            padding: 12px;
-            width: 100%;
-            text-align: center;
-            box-sizing: border-box;
-            display: none;
-        }
-        .link-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
-        .link-value { font-size: 13px; font-weight: 700; color: #60a5fa; }
+        body { background-color: #0b0f19; color: #f1f5f9; font-family: system-ui, sans-serif; text-align: center; padding: 50px; }
+        .container { background: #111827; border: 1px solid #1f2937; padding: 40px; border-radius: 16px; display: inline-block; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3); }
+        h1 { color: #3b82f6; margin-bottom: 5px; }
+        .status { color: #10b981; font-weight: bold; margin-bottom: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <h1>EGU Cloud Host</h1>
-        <div class="subtitle">Next-Gen Local Streaming System</div>
+    <div class="container">
+        <h1>EGU Controller Node</h1>
+        <div class="status">● CONNECTION PIPELINE SECURE</div>
+        <p>Your inputs on this screen are tracking directly to the host application environment.</p>
     </div>
 
-    <div class="card">
-        <div id="badge" class="status-badge">Offline</div>
-
-        <div class="switch-container">
-            <label class="switch">
-                <input type="checkbox" id="power-toggle">
-                <span class="slider"></span>
-            </label>
-        </div>
-
-        <div id="link-display" class="link-card">
-            <div class="link-label">Local Access Address</div>
-            <div class="link-value">http://localhost:3000</div>
-        </div>
-    </div>
-
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        const { ipcRenderer } = require('electron');
-        const toggle = document.getElementById('power-toggle');
-        const badge = document.getElementById('badge');
-        const linkDisplay = document.getElementById('link-display');
-
-        toggle.addEventListener('change', () => {
-            const targetState = toggle.checked ? 'on' : 'off';
-            ipcRenderer.send('toggle-server', targetState);
-        });
-
-        ipcRenderer.on('server-status', (event, status) => {
-            if (status.running) {
-                badge.innerText = "Active";
-                badge.className = "status-badge status-active";
-                linkDisplay.style.display = "block";
-            } else {
-                badge.innerText = "Offline";
-                badge.className = "status-badge";
-                linkDisplay.style.display = "none";
-                toggle.checked = false;
-            }
+        const socket = io({ transports: ['websocket'] });
+        
+        // Simple verification link listener
+        window.addEventListener('click', () => {
+            socket.emit('mouse-click');
         });
     </script>
 </body>
