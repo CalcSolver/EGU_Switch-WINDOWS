@@ -1,39 +1,16 @@
 {
   "name": "egu-cloud-gaming-host",
   "version": "1.0.0",
-  "description": "EGU Host Console Manager",
-  "main": "main.js",
+  "description": "EGU Lightweight Cloud Gaming Host Server",
+  "main": "server.js",
   "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder"
-  },
-  "allowScripts": {
-    "electron": true,
-    "robotjs": true,
-    "sharp": true
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2",
     "socket.io": "^4.7.2",
     "robotjs": "^0.6.0",
     "sharp": "^0.33.5"
-  },
-  "devDependencies": {
-    "electron": "^30.0.0",
-    "electron-builder": "^24.13.3"
-  },
-  "build": {
-    "appId": "com.egu.cloudgaming",
-    "productName": "EGU Cloud Host",
-    "win": {
-      "target": "nsis"
-    },
-    "mac": {
-      "target": "dmg"
-    },
-    "directories": {
-      "output": "dist"
-    }
   },
   "author": "EGU Team",
   "license": "ISC"
