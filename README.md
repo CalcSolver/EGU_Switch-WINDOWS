@@ -5,6 +5,7 @@
 2. Open Windows Command Prompt or Apple's Terminal
 3. Run the Manual.exe and follow the intructions
 ## INTRUCTIONS FOR NINTENDO
+
 1. open system settings
 2. open internet settings
 3. click on your network name
