@@ -1,3 +1,6 @@
+## **DISCLAIMER**:
+-*If someone gets your tailscale link, they can control your computer*\
+-You can turn it off by using the control.html
 # EXTERNAL GAMING UNIT FOR THE NINTENDO SWITCH
 -External Gaming Unit is a folder that lets you play external games, hence the name, you can connect it up to your computer and control your computer from your nintendo switch
  # INTRUCTIONS FOR PC/LAPTOP
