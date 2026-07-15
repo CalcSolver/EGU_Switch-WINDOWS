@@ -1,50 +1,25 @@
 @echo off
-title EGU_Switch Automated Installer
+title EGU Engine Setup Wizard
 cls
-echo ====================================================================
-echo 🎮 WELCOME TO THE EGU_SWITCH AUTOMATED SETUP 🎮
-echo ====================================================================
+echo ====================================================
+echo 🎮 EGU ENGINE FIRST-TIME INSTALLATION WIZARD
+echo ====================================================
 echo.
-
-:: Check for Node.js
-where node >nul 2>nul
-if %errorlevel%==0 (
-    echo ✅ Node.js is already installed!
-) else (
-    echo ❌ Node.js was NOT found on your system.
-    echo 🔗 Opening the official Node.js download page...
-    start https://nodejs.org/
-    echo Please download and install the LTS version, then restart this script.
-    pause
-    exit
-)
-
+echo Please keep this window open while we configure your host files.
 echo.
-echo ⏳ Installing dependencies (express, robotjs, sharp, socket.io)...
-call npm install
-echo ✅ Dependencies installed successfully!
-
+echo [1/3] Approving background script execution limits...
+call npm install-scripts approve electron
+call npm install-scripts approve robotjs
+call npm install-scripts approve sharp
 echo.
-echo 🎥 Checking for FFmpeg video engine...
-where ffmpeg >nul 2>nul
-if %errorlevel%==0 (
-    echo ✅ FFmpeg is ready to go!
-) else (
-    echo ⚠️ FFmpeg is missing. Attempting automatic installation...
-    winget install Gyan.FFmpeg
-    echo.
-    echo Please CLOSE this window and run Setup.bat again to refresh your system paths!
-    pause
-    exit
-)
-
+echo [2/3] Downloading system frameworks...
+call npm install --foreground-scripts
 echo.
-echo ====================================================================
-echo 🎉 ALL SYSTEM CHECKS PASSED!
-echo ====================================================================
+echo [3/3] Compiling interface hardware bridges...
+call npm rebuild robotjs --build-from-source
 echo.
-echo 👉 To START the server: type 'npm start' or 'node server.js'
-echo 👉 To STOP the server at any time: Press [Ctrl + C]
-echo 👉 To UPDATE later: type 'npm run update'
-echo.
+echo ====================================================
+echo ✅ SETUP COMPLETED SUCCESSFULLY!
+echo You can now close this window and open 'run.bat'.
+echo ====================================================
 pause
