@@ -1,93 +1,61 @@
 const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const robot = require('robotjs');
-const sharp = require('sharp');
-const path = require('path');
-
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server, { 
-    transports: ['websocket'],
-    cors: { origin: "*" }
-});
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+const robot = require('robotjs');
+const path = require('path');
+const { execSync } = require('child_process');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Screen capture configuration
-const SCREEN_WIDTH = robot.getScreenSize().width;
-const SCREEN_HEIGHT = robot.getScreenSize().height;
-const STREAM_FPS = 30; // Target frames per second
+// Fetch native Windows monitor dimensions
+const screenSize = robot.getScreenSize();
 
-function captureAndStream() {
+// Helper function to pull the Windows Tailscale adapter IP via PowerShell
+function getTailscaleIP() {
     try {
-        // Capture raw screen pixels via robotjs
-        const img = robot.screen.capture(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-        // Convert raw bitmap to JPEG using sharp for high-performance compression
-        sharp(img.image, {
-            raw: {
-                width: img.width,
-                height: img.height,
-                channels: 4 // RGBA
-            }
-        })
-        .jpeg({ quality: 60 }) // 60% quality balances speed and clarity perfectly
-        .toBuffer()
-        .then(buffer => {
-            // Broadcast the compressed frame to all connected players
-            io.emit('screen-frame', buffer.toString('base64'));
-        })
-        .catch(err => {});
-    } catch (err) {}
+        const command = 'powershell -Command "(Get-NetIPAddress -InterfaceAlias *tailscale* -AddressFamily IPv4).IPAddress"';
+        const ip = execSync(command, { encoding: 'utf8' }).trim();
+        return ip || null;
+    } catch (error) {
+        return null;
+    }
 }
 
-// Stream the desktop continuously when players are connected
-let streamInterval = null;
 io.on('connection', (socket) => {
-    console.log('🎮 Client linked to host controller pipeline.');
+    console.log('📱 iPad Connected to Windows Stream Engine!');
     
-    if (!streamInterval) {
-        streamInterval = setInterval(captureAndStream, 1000 / STREAM_FPS);
-    }
-
-    // Capture incoming input controls
+    // Map percentages from iPad screen directly to Windows display coordinates
     socket.on('mouse-move', (data) => {
-        try {
-            if (data && typeof data.x === 'number' && typeof data.y === 'number') {
-                // Map coordinates from the remote browser back to host screen dimensions
-                const hostX = data.x * SCREEN_WIDTH;
-                const hostY = data.y * SCREEN_HEIGHT;
-                robot.moveMouse(hostX, hostY);
-            }
-        } catch (err) {}
+        const targetX = Math.min(Math.max(data.x * screenSize.width, 0), screenSize.width);
+        const targetY = Math.min(Math.max(data.y * screenSize.height, 0), screenSize.height);
+        robot.moveMouse(targetX, targetY);
     });
 
     socket.on('mouse-click', () => {
-        try { robot.mouseClick(); } catch (err) {}
-    });
-
-    socket.on('key-down', (data) => {
-        try { if (data && data.key) robot.keyToggle(data.key.toLowerCase(), "down"); } catch (err) {}
-    });
-
-    socket.on('key-up', (data) => {
-        try { if (data && data.key) robot.keyToggle(data.key.toLowerCase(), "up"); } catch (err) {}
+        robot.mouseClick();
     });
 
     socket.on('disconnect', () => {
-        if (io.engine.clientsCount === 0) {
-            clearInterval(streamInterval);
-            streamInterval = null;
-            console.log('🔌 No players left. Streaming paused.');
-        }
+        console.log('📱 iPad Disconnected');
     });
 });
 
 const PORT = 3000;
-server.listen(PORT, () => {
-    console.log(`\n====================================================`);
-    console.log(`🚀 EGU CLOUD GAMING ENGINE IS LIVE`);
-    console.log(`🌐 Local Link: http://localhost:${PORT}`);
-    console.log(`====================================================\n`);
+http.listen(PORT, () => {
+    console.log(`=================================================`);
+    console.log(`🚀 Windows Server running on port ${PORT}`);
+    console.log(`🖥️ Desktop Resolution Detected: ${screenSize.width}x${screenSize.height}`);
+    console.log(`=================================================`);
+
+    // Output Tailscale connection link if active
+    const tsIP = getTailscaleIP();
+    if (tsIP) {
+        console.log(`🔒 SECURE TAILSCALE CONNECTION DETECTED!`);
+        console.log(`🔗 iPad Link: http://${tsIP}:${PORT}`);
+    } else {
+        console.log(`⚠️ Tailscale IP not found.`);
+        console.log(`💡 Verify that the Tailscale app is running and active on this PC.`);
+    }
+    console.log(`=================================================`);
 });
