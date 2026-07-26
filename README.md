@@ -1,5 +1,5 @@
 ## **DISCLAIMER**:
--*If someone gets your tailscale link, they can control your computer*\
+-*If someone gets your link, they can control your computer*\
 -You can turn it off by using the control.html
 # EXTERNAL GAMING UNIT FOR THE NINTENDO SWITCH
 -External Gaming Unit is a folder that lets you play external games, hence the name, you can connect it up to your computer and control your computer from your nintendo switch
@@ -31,4 +31,4 @@
 - This was built with Google Gemini so it will make mistakes
 - Internet for nintendo games will not work until you change dns settings back to automatic
 # DONATION:
-If you enjoy this software, feel free to donate to this link:https://gofund.me/0d2e74079
+If you enjoy this software, feel free to subscribe and follow to my socials
