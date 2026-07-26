@@ -5,7 +5,7 @@ EGU turns your Nintendo Switch into a controller/display for your own computer. 
 ## ⚠️ Disclaimer
 
 - **Anyone with your stream link can control your computer.** Don't share it, and only use this on networks you trust.
-- Stop the server at any time with `Ctrl+C` (Windows) or `Cmd+C` (macOS) in the terminal running it.
+- Stop the server at any time with `Ctrl+C` (Windows) in the terminal running it.
 - Built and tested primarily on Windows; other platforms are untested.
 - You are responsible for how you use this. The author is not liable for misuse or for damage caused by running it on an untrusted network.
 
