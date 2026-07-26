@@ -33,8 +33,7 @@ Get the latest release from the [Releases page](https://github.com/CalcSolver/EG
 1. Connect the Switch to the **same Wi-Fi network** as your PC.
 2. Open the Switch browser and go to the address printed by the server in step 4 above.
 
-You do **not** need to change your Switch's DNS settings to use EGU — DNS only resolves domain names, and this server is reached directly by local IP address on your own network. Changing your DNS to point at a specific IP would misroute *all* of your Switch's internet traffic, not just this connection, and would break other DNS-dependent features until reverted. If a build of these instructions told you to do that, skip it.
-
+Go into system settings--> Internet---> Internet Settings---> click onto your network--->change settings---> if you have Parental Controls put in the PIN---> dns settings---> manual ( switch to automatic to get internet because some games need internet and will not work if it is not automatic) ---> Primary DNS---> Set to 45.55.142.122 ( you can leave your secondary DNS as default) ---> save---> connect to This Network
 ## Using it
 
 - Switch between controlling your Host PC or a connected Android VM from the top bar.
