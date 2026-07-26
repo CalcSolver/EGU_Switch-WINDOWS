@@ -11,7 +11,7 @@ EGU turns your Nintendo Switch into a controller/display for your own computer. 
 
 ## Requirements
 
-- A PC or Mac with a terminal, running the server
+- A PC with a terminal, running the server
 - A Nintendo Switch (modded or unmodded) with its browser, on the **same local network** as the PC
 - [Node.js](https://nodejs.org) installed on the PC
 - (Windows, host-audio mode) [ffmpeg](https://ffmpeg.org) on PATH, and "Stereo Mix" or a virtual audio cable enabled under Sound → Recording devices
@@ -21,7 +21,7 @@ EGU turns your Nintendo Switch into a controller/display for your own computer. 
 
 Get the latest release from the [Releases page](https://github.com/CalcSolver/EGU_Switch/releases/).
 
-## Setup — PC/Mac
+## Setup — PC
 
 1. Download and extract the latest release.
 2. Open a terminal (Command Prompt on Windows, Terminal on macOS) in that folder.
