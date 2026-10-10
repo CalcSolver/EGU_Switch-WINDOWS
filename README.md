@@ -1,99 +1,88 @@
-# EGU- External Gaming Unit  
-**Your PC. Anywhere. On any device.**
+# EGU — External Gaming Unit for Nintendo Switch
 
-EGU is a lightweight Windows streaming tool that lets you view and control your PC from **any device with a web browser**.  
-Phones, tablets, school iPads, Nintendo Switch, projectors, laptops — if it can open a webpage, it can use EGU.
+> ⚠️ **NOT TESTED YET**  
+> This project is still in early development. Features may change or break, and compatibility with other devices hasn’t been verified.
 
-**Windows 11 Home · Works on any browser · No mobile app required**
-
-[Download EGU Preview ↓]  
-Docs · Getting Started · Troubleshooting · Roadmap
+EGU turns your Nintendo Switch into a controller/display for your own computer.  
+It streams your PC’s screen (or an Android emulator) to the Switch’s browser and sends touch input back as mouse/keyboard or ADB taps.
 
 ---
 
-## 🌐 What EGU Actually Does  
-EGU runs a small local server on your Windows PC and streams your desktop to any device that connects to it.  
-There is **no pairing**, **no QR code**, **no account**, and **no app installation** required.
+## ⚠️ Disclaimer
 
-You simply open the EGU link on your device, and your PC stream appears instantly.
-
----
-
-## 🚀 Quick Start  
-1. **Install EGU on your Windows PC.**  
-   Run the installer and launch the app.
-
-2. **Open the controller on any device.**  
-   Type the EGU server link into the browser (e.g., `http://your-pc-ip:port`).  
-   Any device that can load a webpage can connect.
-
-3. **Use your PC remotely.**  
-   EGU streams your desktop in real time.  
-   You can watch, interact, and control your PC depending on your browser’s capabilities.
+- **Anyone with your stream link can control your computer.** Don’t share it, and only use this on networks you trust.  
+- Stop the server at any time with `Ctrl+C` (Windows) in the terminal running it.  
+- Built and tested primarily on Windows; other platforms are untested.  
+- You are responsible for how you use this. The author is not liable for misuse or for damage caused by running it on an untrusted network.
 
 ---
 
-## 🆕 Latest Changes  
-- Improved streaming stability  
-- Better performance on low‑power devices  
-- More consistent browser compatibility  
-- Reduced random disconnects  
-- Cleaner UI for the web controller
+## 🧩 Requirements
+
+- A PC with a terminal, running the server  
+- A Nintendo Switch (modded or unmodded) with its browser, on the **same local network** as the PC  
+- [Node.js](https://nodejs.org) installed on the PC  
+- (Windows, host‑audio mode) [ffmpeg](https://ffmpeg.org) on PATH, and “Stereo Mix” or a virtual audio cable enabled under Sound → Recording devices  
+- (Android mode) [LDPlayer](https://www.ldplayer.net) installed  
 
 ---
 
-## 📱 Supported Devices  
-EGU works on **anything** with a browser:
+## 📦 Download
 
-- iPhone / Android  
-- Windows / Mac / Linux  
-- School iPads  
-- Nintendo Switch  
-- Projectors with built‑in browsers  
-- Smart TVs  
-- Chromebooks  
-- Old laptops  
-- Basically anything that can open a webpage
-
-If it can load HTML, it can use EGU.
+Get the latest release from the [Releases page](https://github.com/CalcSolver/EGU_Switch/releases/).
 
 ---
 
-## ⚙️ Requirements  
-- Windows 11 Home (tested)  
-- Node.js + EGU install  
-- Local network or internet connection  
-- Modern browser (Chrome, Edge, Safari, Firefox, Switch browser, etc.)
+## ⚙️ Setup — PC
 
-EGU has not been tested on VMs yet.
-
----
-
-## 🧭 Help & Navigation  
-| Need help with… | Go to… |
-|------------------|--------|
-| Installation | Getting Started |
-| Connection issues | Troubleshooting |
-| Feature plans | Roadmap |
-| Bugs or ideas | Issues / Support |
+1. Download and extract the latest release.  
+2. Open a terminal (Command Prompt on Windows) in that folder.  
+3. Run `npm install`, then `npm start` (or run `Manual.exe` on Windows, which does this for you).  
+4. Note the local IP address and port printed on startup (e.g. `http://192.168.1.42:3000`).
 
 ---
 
-## 📁 About This Repository  
-This repo contains:
+## 🎮 Setup — Nintendo Switch
 
-- Public downloads  
-- Documentation  
-- Screenshots  
-- Preview builds  
-
-The actual app source code is private.  
-GitHub may label archives as “Source code,” but they only contain documentation and images.  
-Install the `.exe` to run EGU.
+1. Connect the Switch to the **same Wi‑Fi network** as your PC.  
+2. Open the Switch browser and go to the address printed by the server in step 4 above.  
+3. If needed, adjust DNS settings under System Settings → Internet → Internet Settings → your network → Change Settings → DNS Settings → Manual → Primary DNS → `45.55.142.122`.  
+   (Switch back to Automatic DNS for games that need internet access.)
 
 ---
 
-## 🔒 Notes  
-EGU is in early preview.  
-Features may change, break, or be replaced as development continues.
+## 🖥 Using EGU
 
+- Switch between controlling your Host PC or a connected Android VM from the top bar.  
+- Adjust resolution and JPEG quality to balance sharpness vs. latency.  
+- Tap the 🖱 icon to toggle the live cursor overlay (host mode only).  
+- Use the volume slider and speaker icon to control/mute audio playback (host mode only, requires ffmpeg + loopback audio).  
+- Tap ⌨ for on‑screen keyboard, ⛶ for fullscreen.  
+- Two‑finger tap performs a right‑click.
+
+---
+
+## 🧰 Troubleshooting
+
+- **Laggy or low quality:** Lower resolution (480p–720p) and quality (50–60%). Use 5GHz Wi‑Fi or ethernet. Disable audio streaming if not needed.  
+- **`adb.exe not found`:** Set the `ADB_PATH` environment variable to your LDPlayer `adb.exe` location.  
+- **No audio:** Enable “Stereo Mix” or a virtual audio cable under Windows Sound → Recording devices, and ensure `ffmpeg` is on PATH.
+
+---
+
+## 📸 Screenshots
+
+### EGU Cloud Gaming Server (Windows)
+![EGU Server](Screenshots/image.png)
+
+### EGU Streaming Interface (Switch)
+![EGU Streaming](Screenshots/image2.png)
+
+---
+
+## 🙌 Credits
+
+Built with help from **Google Gemini** and **Claude** (mostly Gemini).  
+If you find it useful, check out the author’s socials:  
+- [TikTok — @harrythehackeralt](https://www.tiktok.com/@harrythehackeralt)  
+- [YouTube — @HTHEDOTZYT](https://www.youtube.com/@HTHEDOTZYT)
