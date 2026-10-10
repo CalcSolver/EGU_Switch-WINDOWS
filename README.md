@@ -1,56 +1,99 @@
-# EGU — External Gaming Unit for Nintendo Switch
+# EGU  
+**Your PC. Anywhere. On any device.**
 
-EGU turns your Nintendo Switch into a controller/display for your own computer. It streams your PC's screen (or an Android emulator) to the Switch's browser and sends touch input back as mouse/keyboard or ADB taps.
+EGU is a lightweight Windows streaming tool that lets you view and control your PC from **any device with a web browser**.  
+Phones, tablets, school iPads, Nintendo Switch, projectors, laptops — if it can open a webpage, it can use EGU.
 
-## ⚠️ Disclaimer
+**Windows 11 Home · Works on any browser · No mobile app required**
 
-- **Anyone with your stream link can control your computer.** Don't share it, and only use this on networks you trust.
-- Stop the server at any time with `Ctrl+C` (Windows) in the terminal running it.
-- Built and tested primarily on Windows; other platforms are untested.
-- You are responsible for how you use this. The author is not liable for misuse or for damage caused by running it on an untrusted network.
+[Download EGU Preview ↓]  
+Docs · Getting Started · Troubleshooting · Roadmap
 
-## Requirements
+---
 
-- A PC with a terminal, running the server
-- A Nintendo Switch (modded or unmodded) with its browser, on the **same local network** as the PC
-- [Node.js](https://nodejs.org) installed on the PC
-- (Windows, host-audio mode) [ffmpeg](https://ffmpeg.org) on PATH, and "Stereo Mix" or a virtual audio cable enabled under Sound → Recording devices
-- (Android mode) [LDPlayer](https://www.ldplayer.net) installed
+## 🌐 What EGU Actually Does  
+EGU runs a small local server on your Windows PC and streams your desktop to any device that connects to it.  
+There is **no pairing**, **no QR code**, **no account**, and **no app installation** required.
 
-## Download
+You simply open the EGU link on your device, and your PC stream appears instantly.
 
-Get the latest release from the [Releases page](https://github.com/CalcSolver/EGU_Switch/releases/).
+---
 
-## Setup — PC
+## 🚀 Quick Start  
+1. **Install EGU on your Windows PC.**  
+   Run the installer and launch the app.
 
-1. Download and extract the latest release.
-2. Open a terminal (Command Prompt on Windows, Terminal on macOS) in that folder.
-3. Run `npm install`, then `npm start` (or run `Manual.exe` on Windows, which does this for you).
-4. Note the local IP address and port the server prints on startup (e.g. `http://192.168.1.42:3000`).
+2. **Open the controller on any device.**  
+   Type the EGU server link into the browser (e.g., `http://your-pc-ip:port`).  
+   Any device that can load a webpage can connect.
 
-## Setup — Nintendo Switch
+3. **Use your PC remotely.**  
+   EGU streams your desktop in real time.  
+   You can watch, interact, and control your PC depending on your browser’s capabilities.
 
-1. Connect the Switch to the **same Wi-Fi network** as your PC.
-2. Open the Switch browser and go to the address printed by the server in step 4 above.
+---
 
-Go into system settings--> Internet---> Internet Settings---> click onto your network--->change settings---> if you have Parental Controls put in the PIN---> dns settings---> manual ( switch to automatic to get internet because some games need internet and will not work if it is not automatic) ---> Primary DNS---> Set to 45.55.142.122 ( you can leave your secondary DNS as default) ---> save---> connect to This Network
-## Using it
+## 🆕 Latest Changes  
+- Improved streaming stability  
+- Better performance on low‑power devices  
+- More consistent browser compatibility  
+- Reduced random disconnects  
+- Cleaner UI for the web controller
 
-- Switch between controlling your Host PC or a connected Android VM from the top bar.
-- Adjust resolution and JPEG quality to trade off sharpness vs. latency — lower quality/resolution helps a lot on weaker Wi-Fi.
-- Tap the 🖱 icon to toggle the live cursor overlay (host mode only).
-- Use the volume slider and speaker icon to control/mute audio playback (host mode only, requires ffmpeg + a loopback audio device).
-- Tap ⌨ to bring up the on-screen keyboard, ⛶ for fullscreen.
-- Two-finger tap performs a right-click.
+---
 
-## Troubleshooting
+## 📱 Supported Devices  
+EGU works on **anything** with a browser:
 
-- **Stuck below 720p/70% quality / laggy:** this is a JPEG-over-WebSocket screen share, so throughput is bounded by your Wi-Fi. Try: lowering resolution to 480p–720p and quality to 50–60% first; putting the PC on 5GHz Wi-Fi or ethernet; closing other bandwidth-heavy apps; and disabling audio streaming (host mode) if you don't need it, since ffmpeg capture adds CPU overhead.
-- **`adb.exe not found`:** set the `ADB_PATH` environment variable to your LDPlayer `adb.exe` location.
-- **No audio:** enable "Stereo Mix" (or a virtual audio cable) under Windows Sound → Recording devices, and make sure `ffmpeg` is on PATH.
+- iPhone / Android  
+- Windows / Mac / Linux  
+- School iPads  
+- Nintendo Switch  
+- Projectors with built‑in browsers  
+- Smart TVs  
+- Chromebooks  
+- Old laptops  
+- Basically anything that can open a webpage
 
-## Credits
+If it can load HTML, it can use EGU.
 
-Built with help from Google Gemini and Claude( Mostly Google Gemini). If you find it useful, you're welcome to check out the author's socials:
-- https://www.tiktok.com/@harrythehackeralt
-- https://www.youtube.com/@HTHEDOTZYT
+---
+
+## ⚙️ Requirements  
+- Windows 11 Home (tested)  
+- Node.js + EGU install  
+- Local network or internet connection  
+- Modern browser (Chrome, Edge, Safari, Firefox, Switch browser, etc.)
+
+EGU has not been tested on VMs yet.
+
+---
+
+## 🧭 Help & Navigation  
+| Need help with… | Go to… |
+|------------------|--------|
+| Installation | Getting Started |
+| Connection issues | Troubleshooting |
+| Feature plans | Roadmap |
+| Bugs or ideas | Issues / Support |
+
+---
+
+## 📁 About This Repository  
+This repo contains:
+
+- Public downloads  
+- Documentation  
+- Screenshots  
+- Preview builds  
+
+The actual app source code is private.  
+GitHub may label archives as “Source code,” but they only contain documentation and images.  
+Install the `.exe` to run EGU.
+
+---
+
+## 🔒 Notes  
+EGU is in early preview.  
+Features may change, break, or be replaced as development continues.
+
