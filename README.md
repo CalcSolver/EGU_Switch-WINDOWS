@@ -1,4 +1,4 @@
-# EGU  
+# EGU- External Gaming Unit  
 **Your PC. Anywhere. On any device.**
 
 EGU is a lightweight Windows streaming tool that lets you view and control your PC from **any device with a web browser**.  
