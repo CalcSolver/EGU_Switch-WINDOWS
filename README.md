@@ -83,6 +83,6 @@ Get the latest release from the [Releases page](https://github.com/CalcSolver/EG
 ## 🙌 Credits
 
 Built with help from **Google Gemini** and **Claude** (mostly Gemini).  
-If you find it useful, check out the author’s socials:  
+If you find it useful, check out the my socials:  
 - [TikTok — @harrythehackeralt](https://www.tiktok.com/@harrythehackeralt)  
 - [YouTube — @HTHEDOTZYT](https://www.youtube.com/@HTHEDOTZYT)
